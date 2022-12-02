@@ -2,11 +2,15 @@ const express = require("express");
 const { uuid } = require("uuidv4");
 const mssql = require("mssql");
 const database = require("../Config/database");
+const { registerSchema, loginSchema } = require("../Helpers/validator");
 const router = express();
 
 // Register user
-async function createUser(req, res) {
+const createUser = async (req, res) => {
   const { name, email, password } = req.body;
+  // const data = req.body;
+  // Validate data
+  await registerSchema.validateAsync(req.body);
   try {
     //Randomly generate an UserID
     const id = uuid();
@@ -22,11 +26,11 @@ async function createUser(req, res) {
   } catch (error) {
     console.log(error.message);
   }
-}
+};
 
-async function getUser(req, res) {
+const getUser = async (req, res) => {
   const { email, password } = req.body;
-
+  await loginSchema.validateAsync(req.body);
   try {
     let pool = await mssql.connect(database);
     await pool
@@ -38,7 +42,7 @@ async function getUser(req, res) {
   } catch (error) {
     res.send(error.message);
   }
-}
+};
 
 module.exports = {
   createUser,
