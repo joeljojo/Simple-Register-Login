@@ -55,12 +55,19 @@ const getUser = async (req, res) => {
     let loginResult = await pool
       .request()
       .input("Email", mssql.VarChar, email)
-      .input("Password", mssql.VarChar, password)
       .execute("pr_User_Login");
     if (loginResult.recordset != 0) {
-      res.send("User Login Successfully");
+      let bool = bcrypt.compareSync(
+        password,
+        loginResult.recordset[0].Password
+      );
+      if (bool == false) {
+        res.send("Incorrect Username or Password");
+      } else {
+        res.send("Login Successfully");
+      }
     } else {
-      console.log(loginResult);
+      console.log("User Does not exist please Register");
     }
   } catch (error) {
     res.send(error.message);
