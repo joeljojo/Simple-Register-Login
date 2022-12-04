@@ -20,19 +20,28 @@ const createUser = async (req, res) => {
   // Validate data
   await registerSchema.validateAsync(data);
   try {
-    //Randomly generate an UserID
-    const id = uuid();
+    // Check if user exists
     let pool = await mssql.connect(database);
-    await pool
+    const userExists = await pool
       .request()
-      .input("UserID", mssql.VarChar, id)
-      .input("Name", mssql.VarChar, name)
       .input("Email", mssql.VarChar, email)
-      .input("Password", mssql.VarChar, hash)
-      .execute("pr_Create_User");
-    res.send("Register Successfully!");
+      .execute("pr_Check_If_User_Exixts");
+    if (userExists.recordset != 0) {
+      res.send("Email already exists");
+    } else {
+      // Randomly generate an UserID
+      const id = uuid();
+      await pool
+        .request()
+        .input("UserID", mssql.VarChar, id)
+        .input("Name", mssql.VarChar, name)
+        .input("Email", mssql.VarChar, email)
+        .input("Password", mssql.VarChar, hash)
+        .execute("pr_Create_User");
+      res.send("Register Successfully!");
+    }
   } catch (error) {
-    res.send(error.message);
+    console.log(error.message);
   }
 };
 
@@ -42,12 +51,17 @@ const getUser = async (req, res) => {
   await loginSchema.validateAsync(data);
   try {
     let pool = await mssql.connect(database);
-    await pool
+
+    let loginResult = await pool
       .request()
       .input("Email", mssql.VarChar, email)
       .input("Password", mssql.VarChar, password)
       .execute("pr_User_Login");
-    res.send("User Login Successfully!");
+    if (loginResult.recordset != 0) {
+      res.send("User Login Successfully");
+    } else {
+      console.log(loginResult);
+    }
   } catch (error) {
     res.send(error.message);
   }
