@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.css';
 const Login = () => {
+  //Declare state
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+    isCheked: false,
+  });
+
+  const handleInputChange = (e) => {
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+
+    setState({
+      [target.name]: value,
+    });
+  };
   return (
     <div className="form-center">
       <form className="form">
@@ -10,16 +25,36 @@ const Login = () => {
         </div>
         <div className="form-group">
           <label htmlFor="Email">Email</label>
-          <input type="email" placeholder="example@gmail.com" required />
+          <input
+            type="email"
+            name="email"
+            value={state.email}
+            onChange={handleInputChange}
+            placeholder="example@gmail.com"
+            required
+          />
         </div>
 
         <div className="form-group">
           <label htmlFor="Password">Password</label>
-          <input type="password" placeholder="at least 8 characters" required />
+          <input
+            type="password"
+            name="password"
+            value={state.password}
+            onChange={handleInputChange}
+            placeholder="at least 8 characters"
+            required
+          />
         </div>
 
         <div className="form-group checkbox">
-          <input type="checkbox" id="checkbox" />
+          <input
+            type="checkbox"
+            id="checkbox"
+            name="isChecked"
+            checked={state.isCheked}
+            onChange={handleInputChange}
+          />
           <label htmlFor="checkbox">Remember me</label>
         </div>
         <div className="form-group">
