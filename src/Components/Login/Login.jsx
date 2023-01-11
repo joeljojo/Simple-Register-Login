@@ -6,16 +6,17 @@ const Login = () => {
   const [state, setState] = useState({
     email: '',
     password: '',
-    isCheked: false,
+    isChecked: false,
   });
 
   const handleInputChange = (e) => {
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
 
-    setState({
+    setState((prev) => ({
+      ...prev,
       [target.name]: value,
-    });
+    }));
   };
   return (
     <div className="form-center">
@@ -52,7 +53,7 @@ const Login = () => {
             type="checkbox"
             id="checkbox"
             name="isChecked"
-            checked={state.isCheked}
+            checked={state.isChecked}
             onChange={handleInputChange}
           />
           <label htmlFor="checkbox">Remember me</label>
