@@ -79,6 +79,9 @@ button {
   -ms-border-radius: 4px;
   -o-border-radius: 4px;
 }
+button:hover {
+  cursor: pointer;
+}
 .links {
   margin-top: 12px;
   text-align: center;
@@ -101,4 +104,7 @@ button {
 .links a:hover {
   color: #0084ff;
   text-decoration: none;
+}
+span {
+  color: #0084ff;
 }

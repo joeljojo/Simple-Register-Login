@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Login.css';
 const Login = () => {
   return (
@@ -25,11 +26,11 @@ const Login = () => {
           <button>Log in</button>
         </div>
         <div className="links">
-          <a href="#" id="forgot-password">
+          <Link to={'/#'} id="forgot-password">
             Forgot Password?
-          </a>
+          </Link>
           <p>Don&apos;t have an account?</p>
-          <a href="#">Sign up</a>
+          <Link to={'/signup'}>Sign up</Link>
         </div>
       </form>
     </div>
