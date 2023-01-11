@@ -1,10 +1,11 @@
 import React from 'react';
+import './Login.css';
 const Login = () => {
   return (
-    <div>
+    <div className="form-center">
       <form className="form">
         <div className="heading">
-          <h1>Log in</h1>
+          <h2>Log in</h2>
         </div>
         <div className="form-group">
           <label htmlFor="Email">Email</label>
@@ -16,7 +17,7 @@ const Login = () => {
           <input type="password" placeholder="at least 8 characters" required />
         </div>
 
-        <div className="form-group">
+        <div className="form-group checkbox">
           <input type="checkbox" id="checkbox" />
           <label htmlFor="checkbox">Remember me</label>
         </div>
@@ -24,7 +25,9 @@ const Login = () => {
           <button>Log in</button>
         </div>
         <div className="links">
-          <a href="#">Forgot Password</a>
+          <a href="#" id="forgot-password">
+            Forgot Password?
+          </a>
           <p>Don&apos;t have an account?</p>
           <a href="#">Sign up</a>
         </div>
