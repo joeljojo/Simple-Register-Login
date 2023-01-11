@@ -58,11 +58,13 @@ input {
   outline: none;
 }
 input[type='email'],
-input[type='password'] {
+input[type='password'],
+input[type='text'] {
   padding: 12px 20px;
 }
 input[type='email']:focus,
-input[type='password']:focus {
+input[type='password']:focus,
+input[type='text'] {
   background-color: #ffffff;
   border: 1px solid #0084ff;
 }
