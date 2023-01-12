@@ -18,9 +18,41 @@ const Login = () => {
       [target.name]: value,
     }));
   };
+
+  //Destructure variables from state
+  const { email, password } = state;
+  const credentials = {
+    email: email,
+    password: password,
+  };
+  async function userLogin() {
+    const url = 'http://localhost:3001/login';
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(credentials),
+    };
+
+    try {
+      let response = await fetch(url, options);
+      let result = await response.json();
+      console.log(result);
+    } catch (err) {
+      return err.message;
+    }
+  }
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    userLogin();
+  };
+
   return (
     <div className="form-center">
-      <form className="form">
+      <form className="form" onSubmit={handleFormSubmit}>
         <div className="heading">
           <h2>Log in</h2>
         </div>
@@ -59,7 +91,7 @@ const Login = () => {
           <label htmlFor="checkbox">Remember me</label>
         </div>
         <div className="form-group">
-          <button>Log in</button>
+          <button type="submit">Log in</button>
         </div>
         <div className="links">
           <Link to={'/#'} id="forgot-password">
