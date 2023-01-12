@@ -21,9 +21,40 @@ const SignUp = () => {
     }));
   };
 
+  //USing fetch to interact with API
+  const { email, name, password } = state;
+  //Initialize user
+  const user = {
+    name: name,
+    email: email,
+    password: password,
+  };
+
+  async function registerUser() {
+    const url = 'http://localhost:3001/register';
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(user),
+    };
+    try {
+      let response = await fetch(url, options);
+      let result = await response.json();
+      console.log(result);
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    registerUser();
+  };
   return (
     <div className="form-center">
-      <form className="form">
+      <form className="form" onSubmit={handleFormSubmit}>
         <div className="heading">
           <h2>Sign Up</h2>
         </div>
@@ -75,7 +106,7 @@ const SignUp = () => {
           </label>
         </div>
         <div className="form-group">
-          <button>Log in</button>
+          <button type="submit">Sign Up</button>
         </div>
         <div className="links">
           <p>Already have an account?</p>
