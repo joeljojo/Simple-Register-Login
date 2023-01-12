@@ -27,7 +27,7 @@ const createUser = async (req, res) => {
       .input("Email", mssql.VarChar, email)
       .execute("pr_Check_If_User_Exixts");
     if (userExists.recordset != 0) {
-      res.send("Email already exists");
+      res.json({ message: "Email already exists" });
     } else {
       // Randomly generate an UserID
       const id = uuid();
@@ -38,10 +38,10 @@ const createUser = async (req, res) => {
         .input("Email", mssql.VarChar, email)
         .input("Password", mssql.VarChar, hash)
         .execute("pr_Create_User");
-      res.send("Register Successfully!");
+      res.json({ message: "Register Successfully!" });
     }
   } catch (error) {
-    console.log(error.message);
+    res.json({ error: error.message });
   }
 };
 
@@ -62,15 +62,15 @@ const getUser = async (req, res) => {
         loginResult.recordset[0].Password
       );
       if (bool == false) {
-        res.send("Incorrect Username or Password");
+        res.json({ message: "Incorrect Username or Password" });
       } else {
-        res.send("Login Successfully");
+        res.json({ message: "Login Successfully" });
       }
     } else {
-      console.log("User Does not exist please Register");
+      res.json({ message: "User Does not exist please Register" });
     }
   } catch (error) {
-    res.send(error.message);
+    res.send({ error: error.message });
   }
 };
 
