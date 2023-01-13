@@ -74,7 +74,10 @@ const getUser = async (req, res) => {
   }
 };
 
+const updateUser = async (req, res) => {};
+//Work goes here
 module.exports = {
   createUser,
   getUser,
+  updateUser,
 };
