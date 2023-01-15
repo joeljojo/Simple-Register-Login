@@ -18,9 +18,9 @@ const config = {
 //Connect to Database
 mssql.connect(config, (err) => {
   if (!err) {
-    console.log("Connected to Database");
+    return "Database Connected Successfully";
   } else {
-    console.log(err);
+    return err;
   }
 });
 
