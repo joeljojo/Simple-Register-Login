@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 import './Login.css';
 const Login = () => {
   //Declare state
@@ -40,6 +41,19 @@ const Login = () => {
       let response = await fetch(url, options);
       let result = await response.json();
       console.log(result);
+      if (result.status == true) {
+        swal({
+          title: result.message,
+          icon: 'success',
+          button: 'OK',
+        });
+      } else {
+        swal({
+          title: result.message,
+          icon: 'error',
+          button: 'OK',
+        });
+      }
     } catch (err) {
       return err.message;
     }
