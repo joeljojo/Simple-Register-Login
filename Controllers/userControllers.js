@@ -57,17 +57,21 @@ const getUser = async (req, res) => {
       .input("Email", mssql.VarChar, email)
       .execute("pr_User_Login");
     if (loginResult.recordset != 0) {
+      console.log(loginResult.recordset);
       let bool = bcrypt.compareSync(
         password,
         loginResult.recordset[0].Password
       );
       if (bool == false) {
-        res.json({ message: "Incorrect Username or Password" });
+        res.json({ status: false, message: "Incorrect Username or Password" });
       } else {
-        res.json({ message: "Login Successfully" });
+        res.json({ status: true, message: "Login Successfully" });
       }
     } else {
-      res.json({ message: "User Does not exist please Register" });
+      res.json({
+        status: false,
+        message: "User Does not exist please Register",
+      });
     }
   } catch (error) {
     res.send({ error: error.message });
