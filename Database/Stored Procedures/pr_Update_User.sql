@@ -1,5 +1,12 @@
-CREATE PROCEDURE [dbo].[pr_Update_User] @email varchar(255), @password varchar(255)
-AS 
-UPDATE Users set Password = @password where Email = @email
-GO
+CREATE PROCEDURE pr_Update_User(
+	email varchar,
+	password varchar
+) 
+language sql
+BEGIN ATOMIC 
+UPDATE Users set Password = password where Email = email;
+END;
+
+--Test Script
+CALL pr_Update_User('joel@gmail.com', 1234567890)
 

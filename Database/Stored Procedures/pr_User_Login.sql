@@ -1,7 +1,10 @@
-CREATE   PROCEDURE [dbo].[pr_User_Login] @email varchar(255)
-AS 
-SELECT * FROM Users WHERE Email = @email 
-GO
+CREATE PROCEDURE pr_User_Login(
+	email varchar
+)
+language sql 
+BEGIN ATOMIC
+SELECT * FROM Users WHERE Email = email;
+END;
 
 --Test Script
- Execute pr_User_Login 'jojo@gmail.com'
+ CALL pr_User_Login ('jojo@gmail.com')
