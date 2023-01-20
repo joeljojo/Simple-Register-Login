@@ -1,27 +1,27 @@
 const express = require("express");
-const dotenv = require("dotenv").config();
-const mssql = require("mssql");
+const dotenv = require("dotenv");
+dotenv.config();
+const { Client } = require("pg");
 
 const database = express();
 
 //DB configureation
-const config = {
-  user: process.env.DB_USER,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  server: process.env.DB_HOST,
-  options: {
-    trustServerCertificate: true,
-  },
-};
+const client = new Client({
+  host: process.env.PGHOST,
+  database: process.env.PGDATABASE,
+  port: process.env.PGPORT,
+  user: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+});
 
 //Connect to Database
-mssql.connect(config, (err) => {
+client.connect((err) => {
   if (!err) {
-    return "Database Connected Successfully";
+    console.log("Database Connected Successfully");
   } else {
-    return err;
+    console.log(err);
+    client.end();
   }
 });
 
-module.exports = config;
+module.exports = client;

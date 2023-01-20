@@ -9,5 +9,5 @@ app.use(express.json());
 app.use(cors());
 app.use(userRoutes);
 app.listen(PORT, () => {
-  return `Server running on port ${PORT}`;
+  console.log(`Server running on port ${PORT}`);
 });
