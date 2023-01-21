@@ -12,7 +12,6 @@ const client = new Client({
   port: process.env.PGPORT,
   user: process.env.PGUSER,
   password: process.env.PGPASSWORD,
-  ssl: true,
 });
 
 //Connect to Database
