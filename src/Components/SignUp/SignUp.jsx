@@ -31,7 +31,7 @@ const SignUp = () => {
   };
 
   async function registerUser() {
-    const url = 'http://localhost:3001/register';
+    const url = 'https://simple-login-server.onrender.com/register';
     const options = {
       method: 'POST',
       headers: {

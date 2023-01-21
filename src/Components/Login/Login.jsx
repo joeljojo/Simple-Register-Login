@@ -27,7 +27,7 @@ const Login = () => {
     password: password,
   };
   async function userLogin() {
-    const url = 'http://localhost:3001/login';
+    const url = 'https://simple-login-server.onrender.com/login';
 
     const options = {
       method: 'POST',
