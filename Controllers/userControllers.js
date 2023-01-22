@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
       [email],
       (err, result) => {
         if (result.rows.length > 0) {
-          res.json("User Already exists");
+          res.json({ status: false, message: "User Already exists" });
         } else {
           const userID = uuid();
           client.query(
