@@ -34,7 +34,10 @@ const createUser = async (req, res) => {
             [userID, name, email, hash],
             (err, result) => {
               if (!err) {
-                res.json("User Registered Successfully!");
+                res.json({
+                  status: true,
+                  message: "User Registered Successfully!",
+                });
               } else {
                 throw err;
               }
@@ -61,7 +64,6 @@ const getUser = async (req, res) => {
           throw error;
         } else {
           let storedPassword = result.rows[0].password;
-          console.log(storedPassword);
           let bool = bcrypt.compareSync(password, storedPassword);
           if (bool == false) {
             res.json({
