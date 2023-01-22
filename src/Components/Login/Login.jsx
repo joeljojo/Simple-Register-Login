@@ -40,7 +40,6 @@ const Login = () => {
     try {
       let response = await fetch(url, options);
       let result = await response.json();
-      console.log(result);
       if (result.status == true) {
         swal({
           title: result.message,

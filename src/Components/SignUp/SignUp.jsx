@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import swal from 'sweetalert';
 import '../Login/Login.css';
 import { Link } from 'react-router-dom';
 const SignUp = () => {
@@ -42,7 +43,19 @@ const SignUp = () => {
     try {
       let response = await fetch(url, options);
       let result = await response.json();
-      console.log(result);
+      if (result.status == true) {
+        swal({
+          title: result.message,
+          icon: 'success',
+          button: 'OK',
+        });
+      } else {
+        swal({
+          title: result.message,
+          icon: 'error',
+          button: 'OK',
+        });
+      }
     } catch (err) {
       console.log(err.message);
     }
